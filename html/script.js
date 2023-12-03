@@ -64,7 +64,7 @@ window.addEventListener('message', function(event) {
         const key = `${type}_${title}_${body}`;
         if (activeNotifications[key]) {
             const notification = activeNotifications[key];
-            notification.remainingTime = Math.min(notification.remainingTime + 5000, 10000);
+            notification.remainingTime = Math.min(notification.remainingTime + 8000, 16000);
             clearTimeout(notification.timeoutId);
             notification.timeoutId = setTimeout(() => {
                 notification.element.remove();
@@ -117,13 +117,12 @@ window.addEventListener('message', function(event) {
 
         const notificationArea = document.getElementById("notification-area");
         notificationArea.appendChild(id_notification);
-
-        let remainingTime = 5000;
+        
         const timeoutId = setTimeout(() => {
             id_notification.remove();
             delete activeNotifications[key];
             notificationElement.remove();
-        }, remainingTime);
+        }, Math.max(data.body.length * 160, 8000));
 
         activeNotifications[key] = {
             element: id_notification,
