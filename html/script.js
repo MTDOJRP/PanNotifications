@@ -117,12 +117,14 @@ window.addEventListener('message', function(event) {
 
         const notificationArea = document.getElementById("notification-area");
         notificationArea.appendChild(id_notification);
+
+        let remainingTime = Math.max(data.body.length * 160, 8000);
         
         const timeoutId = setTimeout(() => {
             id_notification.remove();
             delete activeNotifications[key];
             notificationElement.remove();
-        }, Math.max(data.body.length * 160, 8000));
+        }, remainingTime);
 
         activeNotifications[key] = {
             element: id_notification,
